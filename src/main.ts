@@ -1,4 +1,4 @@
-import * as THREE from '/build/three.module.js'
+import * as THREE from './../dist/build/three.module.js'
 import {Kriper} from "./Kriper.js";
 // import { OrbitControls } from '/jsm/controls/OrbitControls.js'
 

@@ -1,5 +1,4 @@
-import * as THREE from "/build/three.module.js";
-import {Group, Mesh} from "/build/three.module.js";
+import * as THREE from './../dist/build/three.module.js';
 import {TMousePosition} from "./main.js";
 
 export class Kriper {
@@ -17,8 +16,8 @@ export class Kriper {
         flatShading: true,
         opacity: .5
     })
-    private legs: Group[] = [];
-    private bodyMesh: Mesh;
+    private legs: THREE.Group[] = [];
+    private bodyMesh: THREE.Mesh;
 
     constructor(private scene: THREE.Scene) {
         const head: THREE.BoxGeometry = new THREE.BoxGeometry(20, 20, 20)
@@ -32,11 +31,11 @@ export class Kriper {
         const mouthPart1Mesh: THREE.Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
         const mouthPart2Mesh: THREE.Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
         const mouthPart3Mesh: THREE.Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
-        const mouth: Group = new Group();
-        const leg1: Group = this.getLegGroup(-5, -40, -5);
-        const leg2: Group = this.getLegGroup(-5, -40, 5);
-        const leg3: Group = this.getLegGroup(5, -40, 5);
-        const leg4: Group = this.getLegGroup(5, -40, -5);
+        const mouth: THREE.Group = new THREE.Group();
+        const leg1: THREE.Group = this.getLegGroup(-5, -40, -5);
+        const leg2: THREE.Group = this.getLegGroup(-5, -40, 5);
+        const leg3: THREE.Group = this.getLegGroup(5, -40, 5);
+        const leg4: THREE.Group = this.getLegGroup(5, -40, -5);
         mouth.add(mouthPart1Mesh);
         mouth.add(mouthPart2Mesh);
         mouth.add(mouthPart3Mesh);
@@ -82,7 +81,7 @@ export class Kriper {
     }
 
     private getLegGroup(x: number, y: number, z: number) {
-        let group = new Group();
+        let group = new THREE.Group();
         const leg: THREE.BoxGeometry = new THREE.BoxGeometry(5, 10, 5)
         const bottomPart: THREE.BoxGeometry = new THREE.BoxGeometry(5, 5, 5)
         const bodyMesh: THREE.Mesh = new THREE.Mesh(leg, this.greenMaterial);
