@@ -1,41 +1,43 @@
 import * as THREE from './../dist/build/three.module.js';
 import {TMousePosition} from "./main.js";
+import {BoxGeometry, Group, Mesh, MeshBasicMaterial, Scene} from "/build/three.module.js";
+import {MeshLambertMaterial} from "../dist/build/three.module.js";
 
 export class Kriper {
 
-    private readonly headMesh: THREE.Mesh;
-    private blackMaterial: THREE.MeshBasicMaterial = new THREE.MeshLambertMaterial({
+    private readonly headMesh: Mesh;
+    private blackMaterial: MeshBasicMaterial = new MeshLambertMaterial({
         color: 0x003300,
         wireframe: false,
         flatShading: true,
         opacity: .5
     })
-    private greenMaterial: THREE.MeshBasicMaterial = new THREE.MeshLambertMaterial({
+    private greenMaterial: MeshBasicMaterial = new MeshLambertMaterial({
         color: 0x00cc00,
         wireframe: false,
         flatShading: true,
         opacity: .5
     })
-    private legs: THREE.Group[] = [];
-    private bodyMesh: THREE.Mesh;
+    private legs: Group[] = [];
+    private bodyMesh: Mesh;
 
-    constructor(private scene: THREE.Scene) {
-        const head: THREE.BoxGeometry = new THREE.BoxGeometry(20, 20, 20)
-        const body: THREE.BoxGeometry = new THREE.BoxGeometry(10, 40, 10)
-        const eye: THREE.BoxGeometry = new THREE.BoxGeometry(5, 5, 5)
-        const mouthPart: THREE.BoxGeometry = new THREE.BoxGeometry(2.5, 5, 5)
+    constructor(private scene: Scene) {
+        const head: BoxGeometry = new THREE.BoxGeometry(20, 20, 20)
+        const body: BoxGeometry = new THREE.BoxGeometry(10, 40, 10)
+        const eye: BoxGeometry = new THREE.BoxGeometry(5, 5, 5)
+        const mouthPart: BoxGeometry = new THREE.BoxGeometry(2.5, 5, 5)
 
         this.headMesh = new THREE.Mesh(head, this.greenMaterial);
-        const leftEyeMesh: THREE.Mesh = new THREE.Mesh(eye, this.blackMaterial);
-        const rightEyeMesh: THREE.Mesh = new THREE.Mesh(eye, this.blackMaterial);
-        const mouthPart1Mesh: THREE.Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
-        const mouthPart2Mesh: THREE.Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
-        const mouthPart3Mesh: THREE.Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
-        const mouth: THREE.Group = new THREE.Group();
-        const leg1: THREE.Group = this.getLegGroup(-5, -40, -5);
-        const leg2: THREE.Group = this.getLegGroup(-5, -40, 5);
-        const leg3: THREE.Group = this.getLegGroup(5, -40, 5);
-        const leg4: THREE.Group = this.getLegGroup(5, -40, -5);
+        const leftEyeMesh: Mesh = new THREE.Mesh(eye, this.blackMaterial);
+        const rightEyeMesh: Mesh = new THREE.Mesh(eye, this.blackMaterial);
+        const mouthPart1Mesh: Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
+        const mouthPart2Mesh: Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
+        const mouthPart3Mesh: Mesh = new THREE.Mesh(mouthPart, this.blackMaterial);
+        const mouth: Group = new THREE.Group();
+        const leg1: Group = this.getLegGroup(-5, -40, -5);
+        const leg2: Group = this.getLegGroup(-5, -40, 5);
+        const leg3: Group = this.getLegGroup(5, -40, 5);
+        const leg4: Group = this.getLegGroup(5, -40, -5);
         mouth.add(mouthPart1Mesh);
         mouth.add(mouthPart2Mesh);
         mouth.add(mouthPart3Mesh);
@@ -55,7 +57,7 @@ export class Kriper {
         rightEyeMesh.position.x -= 5;
         rightEyeMesh.position.y += 2;
         this.bodyMesh.position.y = -20;
-        const kriper: THREE.Group = new THREE.Group()
+        const kriper: Group = new THREE.Group()
         this.headMesh.add(leftEyeMesh);
         this.headMesh.add(rightEyeMesh);
         this.headMesh.add(mouth);
@@ -82,10 +84,10 @@ export class Kriper {
 
     private getLegGroup(x: number, y: number, z: number) {
         let group = new THREE.Group();
-        const leg: THREE.BoxGeometry = new THREE.BoxGeometry(5, 10, 5)
-        const bottomPart: THREE.BoxGeometry = new THREE.BoxGeometry(5, 5, 5)
-        const bodyMesh: THREE.Mesh = new THREE.Mesh(leg, this.greenMaterial);
-        const bottomPartMesh: THREE.Mesh = new THREE.Mesh(bottomPart, this.blackMaterial);
+        const leg: BoxGeometry = new THREE.BoxGeometry(5, 10, 5)
+        const bottomPart: BoxGeometry = new THREE.BoxGeometry(5, 5, 5)
+        const bodyMesh: Mesh = new THREE.Mesh(leg, this.greenMaterial);
+        const bottomPartMesh: Mesh = new THREE.Mesh(bottomPart, this.blackMaterial);
         bodyMesh.position.y += 10;
         bottomPartMesh.position.y += 5;
         bottomPartMesh.position.z += 2;
